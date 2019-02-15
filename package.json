@@ -7,5 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Luis Angel Peña Zuñiga",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chardet": "^0.7.0",
+    "edit-file": "^0.3.0",
+    "encoding": "^0.1.12",
+    "iconv-lite": "^0.4.24",
+    "path": "^0.12.7",
+    "replace-in-file": "^3.4.3",
+    "xml2js": "^0.4.19"
+  }
 }
