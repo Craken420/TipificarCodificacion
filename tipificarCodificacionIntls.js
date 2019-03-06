@@ -7,34 +7,39 @@ const { recodificarArchivo }= require('./Utilerias/Codificacion/procesadorCodifi
 const carpeta = 'Testing\\'
 const carpetaReportes = 'C:\\Users\\lapena\\Documents\\Luis Angel\\Sección Mavi\\Intelisis\\Intelisis5000\\Reportes MAVI'
 
-leerCarpetaFiltrada(carpeta, ['.vis','.frm','.esp','.tbl','.rep','.dlg'])
-.then(archivos => {
+function cambiarCodificacion (carpeta, arrExtensiones, codificacion) {
 
-    console.log('\n------------------------------------------------\nAntes: \n')
-    archivos.forEach(x => console.log(
-        detectarCodificacion(x)
-        )
-    )
-})
+    leerCarpetaFiltrada(carpeta, arrExtensiones)
+    .then(archivos => {
 
-leerCarpetaFiltrada(carpeta, ['.vis','.frm','.esp','.tbl','.rep','.dlg'])
-.then(archivos => {
-
-    archivos.forEach(archivo =>  {
-        let content = new Buffer(recodificarArchivo(archivo, 'ASCII'),'ASCII')
-        fs.writeFileSync(archivo,
-            content.toString('ASCII')
+        console.log('\n------------------------------------------------\nAntes: \n')
+        archivos.forEach(x => console.log(
+            detectarCodificacion(x)
+            )
         )
     })
-    
-})
 
-leerCarpetaFiltrada(carpeta, ['.vis','.frm','.esp','.tbl','.rep','.dlg'])
-.then(archivos => {
+    leerCarpetaFiltrada(carpeta, arrExtensiones)
+    .then(archivos => {
 
-    console.log('\n------------------------------------------------\nDespues: \n')
-    archivos.forEach(x => console.log(
-        detectarCodificacion(x)
+        archivos.forEach(archivo =>  {
+            let content = new Buffer(recodificarArchivo(archivo, codificacion),codificacion)
+            fs.writeFileSync(archivo,
+                content.toString(codificacion)
+            )
+        })
+    })
+    leerCarpetaFiltrada(carpeta, arrExtensiones)
+    .then(archivos => {
+
+        console.log('\n------------------------------------------------\nDespues: \n')
+        archivos.forEach(x => console.log(
+            detectarCodificacion(x)
+            )
         )
-    )
-})
+    })
+
+}
+
+cambiarCodificacion(carpeta, ['.vis','.frm','.esp','.tbl','.rep','.dlg'], 'ASCII')
+
